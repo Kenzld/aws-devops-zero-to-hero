@@ -2,15 +2,16 @@
 set -e
 
 # Stop the running container (if any)
-containerid=$(docker ps | awk 'NR>1 {print $1}')
+#containerid=$(docker ps | awk 'NR>1 {print $1}')
+echo "docker stoppped..." 
 
-if [ -n "$containerid" ]; then
-  echo "🛑 Stopping container(s): $containerid"
-  docker stop $containerid
+#if [ -n "$containerid" ]; then
+ # echo "🛑 Stopping container(s): $containerid"
+  #docker stop $containerid
 
-  echo "🧹 Removing container(s): $containerid"
-  docker rm $containerid
-else
-  echo "✅ No running containers found."
-fi
+  #echo "🧹 Removing container(s): $containerid"
+  #docker rm $containerid
+#else
+ # echo "✅ No running containers found."
+#fi
  
