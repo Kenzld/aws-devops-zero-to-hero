@@ -1,17 +1,13 @@
 #!/bin/bash
-set -e
 
-# Stop any container already running on port 5000
-old_container=$(docker ps -q )
+# Find container ID running on port 5000
+cid=$(docker ps | grep "5000" | awk '{print $1}')
 
-if [ -n "$old_container" ]; then
-  echo "🛑 Stopping old container : $old_container"
-  docker stop $old_container
-  docker rm $old_container
+# If container exists, stop it
+if [ -n "$cid" ]; then
+  echo "Stopping container $cid"
+  docker stop $cid
+  docker rm $cid
+else
+  echo "No container found on port 5000"
 fi
-
-# Pull the latest image
-docker pull kenzieeiy/simple-python-flask-app:latest
-
-# Run a fresh container
-docker run -d -p 5000:5000 --name flask-app kenzieeiy/simple-python-flask-app:latest
