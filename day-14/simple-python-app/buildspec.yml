@@ -10,6 +10,8 @@ phases:
   install:
     runtime-versions:
       python: 3.11
+    commands:
+      - cd day-14/simple-python-app   # 👈 change directory
   pre_build:
     commands:
       - echo "Installing dependencies..."
@@ -29,4 +31,4 @@ artifacts:
     - appspec.yml
     - start_container.sh
     - scripts/**/*
-  base-directory: .
+  base-directory: ../..
