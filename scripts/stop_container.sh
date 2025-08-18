@@ -1,17 +1,17 @@
 #!/bin/bash
 set -e
 
-# Stop the running container (if any)
-#containerid=$(docker ps | awk 'NR>1 {print $1}')
-echo "docker stoppped..." 
+# Stop any container already running on port 5000
+old_container=$(docker ps -q )
 
-#if [ -n "$containerid" ]; then
- # echo "🛑 Stopping container(s): $containerid"
-  #docker stop $containerid
+if [ -n "$old_container" ]; then
+  echo "🛑 Stopping old container : $old_container"
+  docker stop $old_container
+  docker rm $old_container
+fi
 
-  #echo "🧹 Removing container(s): $containerid"
-  #docker rm $containerid
-#else
- # echo "✅ No running containers found."
-#fi
- 
+# Pull the latest image
+docker pull kenzieeiy/simple-python-flask-app:latest
+
+# Run a fresh container
+docker run -d -p 5000:5000 --name flask-app kenzieeiy/simple-python-flask-app:latest
